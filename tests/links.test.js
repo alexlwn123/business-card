@@ -88,3 +88,12 @@ test('the VIP links are Signal and personal email; the phone lives in the contac
   assert.deepEqual(built.map((link) => link.id), ['signal', 'personal']);
   assert.ok(built.every((link) => link.vip === true));
 });
+
+test('the email subject is a plain, friendly hello', () => {
+  assert.equal(EMAIL_SUBJECT, `Hi ${CONTACT.firstName}, I scanned your business card`);
+});
+
+test('the email button promises a reply instead of joking that one may never come', () => {
+  const email = LINKS.find((link) => link.id === 'email');
+  assert.doesNotMatch(email.sub, /eventually|maybe|someday|never/i);
+});

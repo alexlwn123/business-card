@@ -16,11 +16,11 @@ export const CONTACT = Object.freeze({
   website: 'https://alex.lwn.lol',
 });
 
-export const EMAIL_SUBJECT = 'I scanned your absurd business card';
+export const EMAIL_SUBJECT = `Hi ${CONTACT.firstName}, I scanned your business card`;
 
 export const LINKS = Object.freeze([
   Object.freeze({ id: 'x', emoji: '🐦', label: '@ALEWIN', sub: "it's still twitter" }),
-  Object.freeze({ id: 'email', emoji: '💌', label: 'EMAIL ME', sub: 'i reply eventually™' }),
+  Object.freeze({ id: 'email', emoji: '💌', label: 'EMAIL ME', sub: 'i always write back' }),
   Object.freeze({ id: 'site', emoji: '🌐', label: 'ALEX.LWN.LOL', sub: 'the mothership' }),
 ]);
 
