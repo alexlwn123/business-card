@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Lewin;Alex;;;
+FN:Alex Lewin
+ORG:Finite Computer
+TITLE:Minister of Development
+EMAIL;TYPE=INTERNET;TYPE=WORK:alex@finite.computer
+URL;TYPE=HOME:https://alex.lwn.lol
+X-SOCIALPROFILE;TYPE=twitter;X-USER=ALewin:https://x.com/ALewin
+ADR;TYPE=HOME:;;;Atlanta\, GA;;;
+END:VCARD

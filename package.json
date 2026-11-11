@@ -1,0 +1,19 @@
+{
+  "name": "alexlewin-card",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --experimental-test-coverage 'tests/*.test.js'",
+    "build": "node scripts/build-vcf.mjs && node scripts/build-vip.mjs",
+    "qr": "node scripts/make-qr.mjs",
+    "deploy": "npm run build && vercel deploy site --prod --yes",
+    "pass:art": "node scripts/render-pass.mjs",
+    "pass:sign": "node scripts/sign-pass.mjs",
+    "vip:rotate": "node scripts/build-vip.mjs --rotate",
+    "test:e2e": "node --test 'tests/e2e/*.test.js'"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1",
+    "qrcode": "^1.5.4"
+  }
+}

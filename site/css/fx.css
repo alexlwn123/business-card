@@ -1,0 +1,286 @@
+/* ---------- airhorn ---------- */
+
+.airhorn {
+  position: fixed;
+  z-index: 30;
+  top: calc(var(--safe-top) + 0.9rem);
+  right: max(0.9rem, env(safe-area-inset-right, 0px));
+  display: grid;
+  place-items: center;
+  width: 4.4rem;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 3px solid var(--void);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--yellow), var(--orange));
+  box-shadow:
+    0 0 0 3px var(--white),
+    0 0 30px var(--orange);
+  cursor: pointer;
+  animation: horn-bob 1.3s ease-in-out infinite;
+}
+
+.airhorn::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 3px solid var(--yellow);
+  border-radius: 50%;
+  animation: ring 1.3s ease-out infinite;
+}
+
+.airhorn:active {
+  scale: 0.88;
+}
+
+.airhorn:focus-visible {
+  outline: 4px dashed var(--white);
+  outline-offset: 6px;
+}
+
+.airhorn__icon {
+  font-size: 2.1rem;
+  transform: scaleX(-1);
+}
+
+.airhorn__sticker {
+  position: absolute;
+  bottom: -0.9rem;
+  left: -1.9rem;
+  padding: 0.15rem 0.4rem;
+  border: 2px solid var(--void);
+  background: var(--pink);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  white-space: nowrap;
+  transform: rotate(-14deg);
+}
+
+/* ---------- flash ---------- */
+
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--white);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- boot screen ---------- */
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 1.3rem;
+  background: #000;
+  color: var(--crt-green);
+  font-family: var(--font-term);
+  font-size: clamp(1.05rem, 4.7vw, 1.6rem);
+  text-shadow: 0 0 6px var(--crt-green);
+  cursor: pointer;
+  /* failsafe: never trap anyone behind the boot screen if JS dies */
+  animation: boot-failsafe 0.3s 7s forwards;
+}
+
+.boot__line {
+  white-space: pre-wrap;
+  animation: line-in 0.14s steps(3) both;
+}
+
+.boot__line--final {
+  margin-top: 1rem;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 2.1em;
+  text-shadow:
+    0 0 12px var(--pink),
+    0 0 32px var(--pink);
+  animation: granted 0.18s steps(2) infinite;
+}
+
+.boot__skip {
+  position: absolute;
+  right: 0;
+  bottom: calc(1.5rem + var(--safe-bottom));
+  left: 0;
+  margin: 0;
+  text-align: center;
+  opacity: 0.55;
+  animation: blink 1s steps(2) infinite;
+}
+
+.boot.is-done {
+  pointer-events: none;
+  animation: crt-off 0.5s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+/* ---------- keyframes ---------- */
+
+@keyframes rave-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes grid-run {
+  to {
+    background-position: 0 52px;
+  }
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-4%, 3%); }
+  66% { transform: translate(3%, -5%); }
+  100% { transform: translate(-2%, 2%); }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes stripes {
+  to {
+    background-position: 45.25px 0;
+  }
+}
+
+@keyframes border-spin {
+  to {
+    --spin: 1turn;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-2.6cqw) rotate(2deg); }
+}
+
+@keyframes sheen {
+  0%, 55% { transform: translateX(-60%); }
+  100% { transform: translateX(60%); }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-a {
+  0%, 72%, 100% { clip-path: inset(0 0 100% 0); transform: none; }
+  74% { clip-path: inset(8% 0 58% 0); transform: translate(-1.3cqw, -0.3cqw); }
+  78% { clip-path: inset(42% 0 30% 0); transform: translate(1.5cqw, 0); }
+  82% { clip-path: inset(0 0 72% 0); transform: translate(-0.9cqw, 0.3cqw); }
+  86% { clip-path: inset(62% 0 4% 0); transform: translate(1.1cqw, -0.2cqw); }
+  90% { clip-path: inset(20% 0 50% 0); transform: translate(-1.6cqw, 0); }
+}
+
+@keyframes glitch-b {
+  0%, 64%, 100% { clip-path: inset(0 0 100% 0); transform: none; }
+  66% { clip-path: inset(70% 0 0 0); transform: translate(1.4cqw, 0.2cqw); }
+  70% { clip-path: inset(30% 0 45% 0); transform: translate(-1.2cqw, 0); }
+  75% { clip-path: inset(5% 0 80% 0); transform: translate(1.8cqw, -0.3cqw); }
+  80% { clip-path: inset(50% 0 22% 0); transform: translate(-0.8cqw, 0); }
+}
+
+@keyframes burst {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.14); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(1.14); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes shine {
+  0%, 55% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(480%) skewX(-20deg); }
+}
+
+@keyframes emoji-wobble {
+  0%, 100% { transform: rotate(-14deg) scale(1); }
+  50% { transform: rotate(14deg) scale(1.15); }
+}
+
+@keyframes arrow-poke {
+  to {
+    transform: translateX(6px);
+  }
+}
+
+@keyframes link-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--from)) rotate(-24deg) scale(0.6);
+  }
+}
+
+@keyframes rainbow-slide {
+  to {
+    background-position: 300% 0;
+  }
+}
+
+@keyframes throb {
+  50% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+}
+
+@keyframes horn-bob {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg) translateY(-4px); }
+}
+
+@keyframes ring {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.7); }
+}
+
+@keyframes boot-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes line-in {
+  from {
+    opacity: 0;
+    transform: translateX(-0.5em);
+  }
+}
+
+@keyframes granted {
+  50% {
+    color: var(--yellow);
+    transform: skewX(-8deg) scale(1.03);
+  }
+}
+
+@keyframes crt-off {
+  0% { transform: scale(1, 1); filter: brightness(1); }
+  60% { transform: scale(1, 0.004); filter: brightness(4); }
+  100% { transform: scale(0, 0.004); filter: brightness(8); opacity: 0; }
+}
+
+/* ---------- calm mode (still loud, just not moving) ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+}

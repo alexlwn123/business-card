@@ -1,0 +1,267 @@
+@property --spin {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.card-wrap {
+  position: relative;
+  width: var(--page-w);
+  container-type: inline-size;
+}
+
+.card-float {
+  animation: float 3.8s ease-in-out infinite;
+}
+
+.card {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 0.5;
+  --my: 0.5;
+  --radius: 5cqw;
+  position: relative;
+  aspect-ratio: 1.46;
+  border-radius: var(--radius);
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.12s linear;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---------- rainbow border + glow ---------- */
+
+.card__glow,
+.card__border {
+  position: absolute;
+  inset: -1.4cqw;
+  border-radius: calc(var(--radius) + 1.4cqw);
+  background: conic-gradient(
+    from var(--spin),
+    var(--pink),
+    var(--yellow),
+    var(--acid),
+    var(--cyan),
+    var(--pink)
+  );
+  animation: border-spin 1.8s linear infinite;
+}
+
+.card__glow {
+  filter: blur(26px);
+  opacity: 0.9;
+}
+
+/* ---------- face ---------- */
+
+.card__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(120% 90% at 0% 0%, #4d0a8a 0%, transparent 55%),
+    radial-gradient(90% 90% at 100% 100%, #003b57 0%, transparent 60%),
+    linear-gradient(160deg, #17002d, #05000c);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+.card__face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(0 240 255 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 240 255 / 0.08) 1px, transparent 1px);
+  background-size: 4.5cqw 4.5cqw;
+}
+
+.card__face::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(100deg, transparent 44%, rgb(255 255 255 / 0.5) 50%, transparent 56%);
+  animation: sheen 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.card__foil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 18%,
+    var(--pink) 30%,
+    var(--yellow) 38%,
+    var(--acid) 46%,
+    var(--cyan) 54%,
+    var(--pink) 62%,
+    transparent 74%
+  );
+  background-size: 260% 260%;
+  background-position: calc(var(--mx) * 100%) calc(var(--my) * 100%);
+  mix-blend-mode: color-dodge;
+  opacity: 0.5;
+}
+
+.card__glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+    rgb(255 255 255 / 0.55),
+    transparent 42%
+  );
+  mix-blend-mode: overlay;
+}
+
+.card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 5.5cqw 6.5cqw;
+}
+
+.card__eyebrow {
+  margin: 0;
+  color: var(--acid);
+  font-size: 4.4cqw;
+  letter-spacing: 0.14em;
+  text-shadow: 0 0 1.6cqw var(--acid);
+}
+
+.card__name {
+  margin: 1.4cqw 0 0;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 16cqw;
+  font-weight: 400;
+  line-height: 0.86;
+  text-shadow:
+    0.7cqw 0.7cqw 0 var(--pink),
+    1.4cqw 1.4cqw 0 var(--cyan);
+}
+
+.card__tagline {
+  margin: 2.2cqw 0 0;
+  color: var(--yellow);
+  font-size: 6cqw;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 0 2cqw rgb(255 230 0 / 0.7);
+}
+
+.caret {
+  animation: blink 0.8s steps(2) infinite;
+}
+
+.card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.card__loc {
+  font-family: var(--font-display);
+  font-size: 3.6cqw;
+}
+
+.chip {
+  width: 11cqw;
+  aspect-ratio: 1.3;
+  border-radius: 1.6cqw;
+  background:
+    linear-gradient(90deg, transparent 32%, rgb(0 0 0 / 0.35) 32% 35%, transparent 35% 65%, rgb(0 0 0 / 0.35) 65% 68%, transparent 68%),
+    linear-gradient(0deg, transparent 46%, rgb(0 0 0 / 0.35) 46% 54%, transparent 54%),
+    linear-gradient(135deg, #fff0b3, #d4a017 45%, #fff3c4 55%, #b8860b);
+  box-shadow: 0 0 2cqw rgb(255 215 0 / 0.6);
+}
+
+/* ---------- glitch title ---------- */
+
+.glitch {
+  position: relative;
+  display: block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  text-shadow: none;
+  pointer-events: none;
+  clip-path: inset(0 0 100% 0);
+}
+
+.glitch::before {
+  color: var(--cyan);
+  animation: glitch-a 2.3s steps(1) infinite;
+}
+
+.glitch::after {
+  color: var(--pink);
+  animation: glitch-b 2.9s steps(1) infinite;
+}
+
+.glitch + .glitch::before {
+  animation-delay: -0.9s;
+}
+
+.glitch + .glitch::after {
+  animation-delay: -1.7s;
+}
+
+/* ---------- starburst badges ---------- */
+
+.burst {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 23cqw;
+  aspect-ratio: 1;
+  padding: 3cqw;
+  background: var(--yellow);
+  color: var(--void);
+  font-family: var(--font-display);
+  font-size: 4.4cqw;
+  line-height: 0.95;
+  text-align: center;
+  clip-path: polygon(
+    50% 0%, 58.2% 13.9%, 71.7% 5%, 73.1% 21.1%, 89.1% 18.8%, 83.3% 33.9%, 98.7% 38.9%,
+    87% 50%, 98.7% 61.1%, 83.3% 66.1%, 89.1% 81.2%, 73.1% 78.9%, 71.7% 95%, 58.2% 86.1%,
+    50% 100%, 41.8% 86.1%, 28.3% 95%, 26.9% 78.9%, 10.9% 81.2%, 16.7% 66.1%, 1.3% 61.1%,
+    13% 50%, 1.3% 38.9%, 16.7% 33.9%, 10.9% 18.8%, 26.9% 21.1%, 28.3% 5%, 41.8% 13.9%
+  );
+  animation: burst 6s linear infinite;
+  pointer-events: none;
+}
+
+.burst--new {
+  top: -10cqw;
+  right: -3cqw;
+}
+
+.burst--legit {
+  bottom: 2cqw;
+  left: -4cqw;
+  width: 25cqw;
+  background: var(--acid);
+  font-size: 3.7cqw;
+  animation-direction: reverse;
+  animation-duration: 7.5s;
+}
+
+.hint {
+  margin: 9cqw 0 0;
+  color: var(--cyan);
+  font-size: 1.35rem;
+  text-align: center;
+  text-shadow: 0 0 10px var(--cyan);
+  animation: blink 1.1s steps(2) infinite;
+}
