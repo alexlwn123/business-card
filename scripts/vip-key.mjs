@@ -26,7 +26,7 @@ export async function writePrivate(file, contents) {
 export async function loadVipKey(privateDir, { create = false, rotate = false } = {}) {
   const file = vipKeyFile(privateDir);
   if (existsSync(file) && !rotate) return checked((await readFile(file, 'utf8')).trim(), file);
-  if (!create && !rotate) throw new Error(`No VIP key at ${file}. Run "npm run build" first; it creates one.`);
+  if (!create && !rotate) throw new Error(`No VIP key at ${file}. Run "pnpm build" first; it creates one.`);
 
   const key = newVipKey();
   await mkdir(privateDir, { recursive: true, mode: 0o700 });

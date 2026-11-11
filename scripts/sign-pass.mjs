@@ -1,5 +1,5 @@
 // Signs the Wallet pass with your Pass Type ID certificate and writes out/alex-lewin.pkpass.
-// Usage: P12_PASSWORD='…' npm run pass:sign -- ~/Downloads/PassTypeID.p12
+// Usage: P12_PASSWORD='…' pnpm pass:sign ~/Downloads/PassTypeID.p12
 // The pass type id + team id are read from the certificate, and the QR gets the
 // VIP unlock link from private/vip.key, so there's nothing else to configure.
 import { execFile } from 'node:child_process';
@@ -66,7 +66,7 @@ async function wwdrPem(outFile) {
 
 async function readArt() {
   const names = (await readdir(PATHS.art)).filter((name) => name.endsWith('.png'));
-  if (!names.includes('icon.png')) throw new Error(`No icon.png in ${PATHS.art}. Run "npm run pass:art" first.`);
+  if (!names.includes('icon.png')) throw new Error(`No icon.png in ${PATHS.art}. Run "pnpm pass:art" first.`);
   return Promise.all(names.map(async (name) => [name, await readFile(join(PATHS.art, name))]));
 }
 
@@ -102,14 +102,14 @@ async function signAndZip(stageDir, keys) {
 async function scanUrlForPass() {
   const key = await loadVipKey(PATHS.private);
   if (!existsSync(join(PATHS.site, vipFiles(key).details))) {
-    throw new Error('The VIP files for this key are not built. Run "npm run build" (then deploy) before signing.');
+    throw new Error('The VIP files for this key are not built. Run "pnpm build" (then deploy) before signing.');
   }
   return vipUrl(PASS.CARD_URL, key);
 }
 
 async function main() {
   const [p12Arg] = process.argv.slice(2);
-  if (!p12Arg) throw new Error("Usage: P12_PASSWORD='…' npm run pass:sign -- /path/to/PassTypeID.p12");
+  if (!p12Arg) throw new Error("Usage: P12_PASSWORD='…' pnpm pass:sign /path/to/PassTypeID.p12");
   if (process.env.P12_PASSWORD === undefined) {
     throw new Error("Set P12_PASSWORD (use P12_PASSWORD='' if the .p12 has no password).");
   }

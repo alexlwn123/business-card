@@ -1,4 +1,4 @@
-// Usage: npm run qr -- https://your-card.vercel.app
+// Usage: pnpm qr https://your-card.vercel.app
 // Writes out/card-qr.png (high-res, for scanning into Wallet) and out/card-qr.svg (for print).
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +10,7 @@ const PNG_WIDTH = 1200;
 const OUT_DIR = new URL('../out/', import.meta.url);
 
 function parseUrl(raw) {
-  if (!raw) throw new Error('Usage: npm run qr -- https://your-card.vercel.app');
+  if (!raw) throw new Error('Usage: pnpm qr https://your-card.vercel.app');
   let url;
   try {
     url = new URL(raw);

@@ -1,6 +1,6 @@
 // Renders the Wallet artwork (strip/logo/icon at 1x/2x/3x) into wallet/pass/
 // and a rough Wallet mock-up into out/pass-preview.png.
-// Usage: npm run pass:art   (set BROWSER_PATH to override the browser)
+// Usage: pnpm pass:art   (set BROWSER_PATH to override the browser)
 import { mkdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';

@@ -89,14 +89,14 @@ test('produces a .pkpass whose manifest, identity and signature all check out', 
 test('refuses to sign without a VIP key', async () => {
   const env = { ...process.env, P12_PASSWORD: PASSWORD, PRIVATE_DIR: join(dir, 'no-private-here') };
   await assert.rejects(run(process.execPath, [SCRIPT, join(dir, 'leaf.p12')], { env }), (error) => {
-    assert.match(error.stderr, /npm run build/);
+    assert.match(error.stderr, /pnpm build/);
     return true;
   });
 });
 
 test('refuses to sign a QR whose VIP files have not been built', async () => {
   await assert.rejects(sign(join(dir, 'leaf.p12'), { site: join(dir, 'empty-site') }), (error) => {
-    assert.match(error.stderr, /npm run build/);
+    assert.match(error.stderr, /pnpm build/);
     return true;
   });
 });

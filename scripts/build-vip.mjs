@@ -2,7 +2,7 @@
 //   site/vip/<key>.json  private details shown on the page
 //   site/vip/<key>.vcf   the full contact card
 // from private/contact.json, which stays outside site/ and is never deployed.
-// Usage: npm run build   (or npm run vip:rotate to retire the current key)
+// Usage: pnpm build   (or pnpm vip:rotate to retire the current key)
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
